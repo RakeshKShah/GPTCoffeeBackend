@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(__dirname, 'data');
 const dataPath = path.join(dataDir, 'db.json');
-const port = Number(process.env.PORT || 4100);
+const port = Number(process.env.PORT || 6713);
 
 const gradients = [
   'from-amber-300 via-orange-500 to-stone-900',
@@ -198,6 +198,10 @@ function slugify(value) {
 const app = express();
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || true }));
 app.use(express.json({ limit: '1mb' }));
+
+app.get('/health', (_req, res) => {
+  res.json({ ok: true });
+});
 
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true });
